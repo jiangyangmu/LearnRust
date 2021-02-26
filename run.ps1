@@ -23,7 +23,9 @@ try {
 
 	if ($src -like "*.rs") {
 		rustc .\$src
-		& .\$bin $bin_args
+		if ($?) {
+			& .\$bin $bin_args
+		}
 	} else {
 		Write-Host "Can't find source file."
 	}
