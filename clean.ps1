@@ -1,2 +1,1 @@
-Remove-Item **/*.pdb
-Remove-Item **/*.exe
+Remove-Item */*.pdb,*/*.exe,*/target/,*/doc/
