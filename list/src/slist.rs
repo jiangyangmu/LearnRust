@@ -118,17 +118,26 @@ mod tests {
 	}
 
 	#[test]
-	fn push_peek() {
+	fn peek() {
 		let mut list = SList::<i32>::new();
 
 		assert_eq!(list.peek(), None);
-		assert_eq!(list.peek_mut(), None);
 		list.push(1);
 		assert_eq!(list.peek(), Some(&1));
-		assert_eq!(list.peek_mut(), Some(&mut 1));
 		list.push(2);
 		assert_eq!(list.peek(), Some(&2));
+	}
+
+	#[test]
+	fn peek_mut() {
+		let mut list = SList::<i32>::new();
+
+		assert_eq!(list.peek_mut(), None);
+		list.push(1);
+		assert_eq!(list.peek_mut(), Some(&mut 1));
+		list.push(2);
 		assert_eq!(list.peek_mut(), Some(&mut 2));
+		
 		list.peek_mut().map(|elem| { *elem = 4 });
 		assert_eq!(list.peek(), Some(&4));
 		assert_eq!(list.peek_mut(), Some(&mut 4));
@@ -176,13 +185,15 @@ mod tests {
 		list.push(3);
 
 		let mut iter = list.iter_mut();
-		let first = iter.next();
 
-		assert_eq!(first, Some(&mut 3));
+		assert_eq!(iter.next(), Some(&mut 3));
 		assert_eq!(iter.next(), Some(&mut 2));
 		assert_eq!(iter.next(), Some(&mut 1));
 		assert_eq!(iter.next(), None);
-		*first.unwrap() = 4;
-		assert_eq!(list.peek(), Some(&4));
+
+		*list.iter_mut().next().unwrap() = 4;
+		assert_eq!(*list.peek().unwrap(), 4);
+		*list.iter_mut().next().unwrap() = 5;
+		assert_eq!(*list.peek().unwrap(), 5);
 	}
 }
