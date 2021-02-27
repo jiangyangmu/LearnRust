@@ -33,12 +33,7 @@ impl<T> SList<T> {
 	}
 
 	pub fn tail(&self) -> SList<T> {
-		SList { head:
-			match self.head.as_ref() {
-				Some(rc_ref) => (**rc_ref).next.clone(),
-				None => None,
-			}
-		}
+		SList { head: self.head.as_ref().and_then(|rc_ref| (**rc_ref).next.clone()) }
 	}
 
 	pub fn iter(&self) -> Iter<'_, T> {
