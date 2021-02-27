@@ -38,6 +38,5 @@ fn main() {
 	println!("arrtype = {:?}\n\tfirst item: {}", arrtype, arrtype[0]);
 	println!("sttype1 = {:?}", sttype1);
 	println!("sttype2 = {}", sttype2);
-	println!("sttype3 = {}", sttype3);
 	println!("etype1 = {:?}", match etype1 { Color::WHITE => "WHITE", _ => "not WHITE"});
 }
